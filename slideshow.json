@@ -2,13 +2,13 @@
     "repeat": 2,
     "slides": [
         {
-            "url": "http://www.instructables.com/files/orig/FYC/48KX/IJ1TY4LH/FYC48KXIJ1TY4LH.png",
+            "url": "https://github.com/rgifford/Raspberry-Pi-LCD-Web-Slideshow/blob/master/images/pi-logo.png?raw=true",
             "transition": "fade",
             "delay": 5,
             "background_colour": "255,255,255"
         },
         {
-            "url": "http://i916.photobucket.com/albums/ad8/markmezo/Pi_inside.gif",
+            "url": "https://github.com/rgifford/Raspberry-Pi-LCD-Web-Slideshow/blob/master/images/pi-inside.gif?raw=true",
             "transition": "fade",
             "delay": 5,
             "background_colour": "255,255,255"
