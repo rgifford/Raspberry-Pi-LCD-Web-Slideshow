@@ -10,6 +10,7 @@ import urllib
 import random, string
 import atexit
 import time
+import subprocess
 
 #Setup the GPIOs as outputs - only 4 and 17 are available
 GPIO.setmode(GPIO.BCM)
@@ -85,6 +86,7 @@ atexit.register(cleanup)
 with open('slideshow.json') as slideshow_file:
     slideshow_data = json.load(slideshow_file)
 
+FNULL = open(os.devnull, 'w')
 repeats = 0
 if (int(slideshow_data['repeat']) > 0): 
     repeats = int(slideshow_data['repeat'])
@@ -92,9 +94,12 @@ repeate_number = 0
 repeate = True
 while repeate:
     for slide in slideshow_data['slides']:
-        filename, extension = (slide['url'].split('/')[-1].split('.'))
-        temp_file = "/tmp/" + ''.join(random.choice(string.lowercase) for i in range(10)) + "." + extension
-        urllib.urlretrieve(slide['url'], temp_file)
+        temp_file = "/tmp/" + ''.join(random.choice(string.lowercase) for i in range(10))
+        while ( os.path.isfile(temp_file) ): 
+            # We don't want to just assume that the temp file does not exist
+            temp_file = "/tmp/" + ''.join(random.choice(string.lowercase) for i in range(10))
+        # Using wget to retrieve images. The urllib had issues with Zabbix logins. 
+        subprocess.check_call("wget --output-document="+temp_file+" '"+slide['url']+"'", shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
         print("Downloaded "+slide['url']+" to "+temp_file)
         slide_image = pygame.image.load(temp_file).convert()
         os.remove(temp_file)
