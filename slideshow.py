@@ -24,8 +24,8 @@ os.putenv('SDL_FBDEV', '/dev/fb1')
 
 pygame.init()
 pygame.mouse.set_visible(False)
-screen_res_x = 320
-screen_res_y = 240
+screen_res_x = pygame.display.Info().current_w
+screen_res_y = pygame.display.Info().current_h
 screen = pygame.display.set_mode((screen_res_x, screen_res_y))
 screen.fill((0,0,0))
 pygame.display.update()
